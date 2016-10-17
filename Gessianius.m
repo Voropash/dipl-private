@@ -30,13 +30,19 @@ Hessian_FULL_s   = [Hessian_FULL(2 : DIM+1, 2 : DIM+1)         Hessian_FULL(2 : 
 levaya_peremennaya1 = transpose(-J_s^(-1))* Hessian_FULL_s * (-J_s^(-1));
 d2l_dp2 = levaya_peremennaya1(1,1);
 
-uuu =  min(roots(poly(Hessian_FULL_s)));
+uuu = min(real(roots(poly(Hessian_FULL_s))));
 
 
 %% Значение функции потерь
 F = [diag(u), diag(v);
     diag(v), -diag(u)] * [ G, -B;
                            B, G]*[u ; v];
+                       
+
+F = -[diag(v), diag(u);
+    -diag(u), diag(v)]  * [ G, B; 
+                            B, -G]*[u ; v];
+                        
    l = 0;
    for kkkkkkkkk = 1:1:DIM+1
        l =  l + F(kkkkkkkkk);

@@ -20,13 +20,13 @@ format longG;
 %u = [balanceU; real(U)]
 %v = [0; imag(U)]
 
-[U,fval,exitflag,output,jacobian] = fsolve(@UUR, ones(15,1)*220,optimset('Display', 'off','MaxFunEvals',15000000,'MaxIter', 300), ConductMatrix,ConductMatrix_s,DIM,S,balanceU);
-%[x,fval,exitflag,output,grad,hessian] = fminunc(@lost_function, ones(15,1)*220,optimset('Display', 'off','MaxFunEvals',15000000,'MaxIter',300), ConductMatrix,ConductMatrix_s,DIM,S,balanceU);
+[U,fval,exitflag,output,jacobian] = fsolve(@UUR, ones(DIM,1)*220,optimset('Display', 'off','MaxFunEvals',15000000,'MaxIter', 300), ConductMatrix,ConductMatrix_s,DIM,S,balanceU);
+%[x,fval,exitflag,output,grad,hessian] = fminunc(@lost_function, ones(DIM,1)*220,optimset('Display', 'off','MaxFunEvals',15000000,'MaxIter',300), ConductMatrix,ConductMatrix_s,DIM,S,balanceU);
 
 u = [balanceU; real(U)];
 v = [0; imag(U)];
 %output.iterations
-if (output.iterations >= 300) 
+if (output.iterations >= 100) 
     flagNotSeries = true;
 end
 Gessianius;

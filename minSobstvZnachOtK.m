@@ -16,8 +16,8 @@ l=0;
 l3_res = 0;
 l1_res = 0;
 
-step = 0.005;
-for k = step:step:30
+step = 0.1;
+for k = step:step:5
     k
     S = S_Base * k;
     perform;
@@ -25,7 +25,7 @@ for k = step:step:30
     if (flagNotSeries~=true)
             masK = [masK, k];
             masLambda = [masLambda, real(uuu)];
-            masHessFromMatlabFunction = [masHessFromMatlabFunction, lost_function(u,v,G,B)];
+            masHessFromMatlabFunction = [masHessFromMatlabFunction, l];
       
             masU = [masU, u(2)];
             masL = [masL, l];
@@ -36,10 +36,10 @@ for k = step:step:30
             end
             l_s_1 = l_s(1)
             m1 = lost_function(u,v,G,B);
-            S = S_Base * k + [0.001;0;0;0;0;0;0;0;0;0;0;0;0;0;0];
+            S = S_Base * k + [0.01;0];
             perform;
             m2 = lost_function(u,v,G,B);
-            manual = ((m2 - m1)/0.001)
+            manual = ((m2 - m1)/0.01)
             masDiff = [masDiff, l_s_1];
             masDiffI = [masDiffI,manual];
             disp('-------------')            

@@ -14,8 +14,8 @@ B = zeros(16, 16);
 for i = 1:16
     Z(find(name_node==node_from(i)), find(name_node==node_to(i))) = r(i) + x(i)*1i;
     Z(find(name_node==node_to(i)), find(name_node==node_from(i))) = r(i) + x(i)*1i;
-    %B(find(name_node==node_from(i)), find(name_node==node_to(i))) = b(i);
-    %B(find(name_node==node_to(i)), find(name_node==node_from(i))) = b(i);
+    B(find(name_node==node_from(i)), find(name_node==node_to(i))) = b(i);
+    B(find(name_node==node_to(i)), find(name_node==node_from(i))) = b(i);
 end
 B = B*1i;
 real_z = real(Z);

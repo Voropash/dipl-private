@@ -27,3 +27,21 @@ S_Base = [
     14.52273
     ];
 S = S_Base;
+
+
+
+
+%% 3.2 Idelchik
+%% dimention
+DIM = 2;
+%% constants
+MAX_NUMBER_OF_ITERATIONS = 700;
+PRECISION = 0.00000001;
+%% balanse
+balanceU = 110+0*1i; %kW
+%% conduct matrix
+conduction_by_resistance;
+%% power load
+% Potreblenie
+S_Base = [20+16*1i; 20+16*1i]; %mV
+S = S_Base;
