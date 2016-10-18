@@ -1,8 +1,39 @@
+%% 3.2 Idelchik
+%% dimention
+DIM = 2;
+%% balanse
+balanceU = 110+0*1i; %kW
+%% conduct matrix
+conduction_by_resistance;
+%% power load
+% Potreblenie
+S_Base = [20+16*1i; 20+16*1i]; %mV
+S = S_Base;
+
+
+
+ConductMatrix_s = [0.0338-0.0745i -0.0138+0.0345i;
+                -0.0138+0.0345i  0.0271-0.0612i];
+ConductMatrix = [  0.0333-0.0667i -0.02+0.04i     -0.0133+0.0267i;
+                    -0.02+0.04i      0.0338-0.0745i -0.0138+0.0345i;
+                    -0.0133+0.0267i -0.0138+0.0345i  0.0271-0.0612i];
+G = real(ConductMatrix);
+B = -imag(ConductMatrix);
+
+G_s = real(ConductMatrix_s);
+B_s = -imag(ConductMatrix_s);
+
+balanceU = 115;
+DIM = 2;
+S_Base = [28.8675+17.3205*1i; -46.1880-23.0940*1i];
+
+
+
 %% dimention
 DIM = 15;
 %% constants
-MAX_NUMBER_OF_ITERATIONS = 250000;
-PRECISION = 0.000000000000001;
+MAX_NUMBER_OF_ITERATIONS = 2500;
+PRECISION = 0.0000001;
 %% balanse
 balanceU = 220; %110+0*i; %kW
 %% power load
@@ -28,20 +59,3 @@ S_Base = [
     ];
 S = S_Base;
 
-
-
-
-%% 3.2 Idelchik
-%% dimention
-DIM = 2;
-%% constants
-MAX_NUMBER_OF_ITERATIONS = 700;
-PRECISION = 0.00000001;
-%% balanse
-balanceU = 110+0*1i; %kW
-%% conduct matrix
-conduction_by_resistance;
-%% power load
-% Potreblenie
-S_Base = [20+16*1i; 20+16*1i]; %mV
-S = S_Base;

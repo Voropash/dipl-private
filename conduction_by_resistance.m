@@ -31,3 +31,8 @@ CM = -diag(sum(CM)) + CM
 
 B = real(CM);
 G = imag(CM);
+B_s = real(ConductMatrix);
+G_s = imag(ConductMatrix);
+
+ConductMatrix_s = ConductMatrix;
+ConductMatrix = CM;

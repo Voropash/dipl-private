@@ -1,3 +1,5 @@
+%% trick =)
+B = -B; 
 %% ћатрица якоби 
 J = [diag(G*u-B*v), diag(B*u+G*v);
      -diag(B*u+G*v), diag(G*u-B*v)];
@@ -37,14 +39,11 @@ uuu = min(real(roots(poly(Hessian_FULL_s))));
 F = [diag(u), diag(v);
     diag(v), -diag(u)] * [ G, -B;
                            B, G]*[u ; v];
-                       
-
-F = -[diag(v), diag(u);
-    -diag(u), diag(v)]  * [ G, B; 
-                            B, -G]*[u ; v];
-                        
+                      
    l = 0;
    for kkkkkkkkk = 1:1:DIM+1
        l =  l + F(kkkkkkkkk);
-   end    
+   end
+%% untrick
+B = -B;
    
