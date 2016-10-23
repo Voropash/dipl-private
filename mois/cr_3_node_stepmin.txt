@@ -1,0 +1,1 @@
+  iter       grad(x_k)           value       Step     vector
