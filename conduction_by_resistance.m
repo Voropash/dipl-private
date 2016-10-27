@@ -27,12 +27,12 @@ for j = 1:1:DIM+1
         end
     end;
 end;
-CM = -diag(sum(CM)) + CM
+CM = diag(sum(CM)) - CM
 
-B = real(CM);
-G = imag(CM);
-B_s = real(ConductMatrix);
-G_s = imag(ConductMatrix);
+B = -imag(CM);
+G = real(CM);
+B_s = -imag(ConductMatrix);
+G_s = real(ConductMatrix);
 
 ConductMatrix_s = ConductMatrix;
 ConductMatrix = CM;

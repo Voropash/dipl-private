@@ -1,6 +1,3 @@
-%% trick =)
-B = -B; 
-
 %% ћатрица якоби 
 J = [diag(G*u-B*v), diag(B*u+G*v);
      -diag(B*u+G*v), diag(G*u-B*v)];
@@ -45,6 +42,4 @@ F = [diag(u), diag(v);
    for kkkkkkkkk = 1:1:DIM+1
        l =  l + F(kkkkkkkkk);
    end
-%% untrick
-B = -B;
    

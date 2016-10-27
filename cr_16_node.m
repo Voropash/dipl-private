@@ -26,11 +26,11 @@ disp(Y{1})
 disp(Y{2})
 
 G = (Y{1}([ballance_node, 1:(ballance_node-1), (ballance_node+1):num_node],[ballance_node, 1:(ballance_node-1), (ballance_node+1):num_node]));
-B = (Y{2}([ballance_node, 1:(ballance_node-1), (ballance_node+1):num_node],[ballance_node, 1:(ballance_node-1), (ballance_node+1):num_node]));
+B = -(Y{2}([ballance_node, 1:(ballance_node-1), (ballance_node+1):num_node],[ballance_node, 1:(ballance_node-1), (ballance_node+1):num_node]));
 
 G_s = (G(2 : DIM+1, 2 : DIM+1));
 B_s = (B(2 : DIM+1, 2 : DIM+1));
 
-ConductMatrix = G + 1i*B;
+ConductMatrix = G - 1i*B;
 %% trick
-ConductMatrix_s = G_s + 1i*B_s;
+ConductMatrix_s = G_s - 1i*B_s;

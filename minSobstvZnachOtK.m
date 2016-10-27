@@ -17,7 +17,7 @@ l3_res = 0;
 l1_res = 0;
 
 step = 0.1;
-for k = step:step:1.2
+for k = step:step:7
     k
     S = S_Base * k;
     perform;
