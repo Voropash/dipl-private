@@ -101,24 +101,29 @@ syms p1 p2 q1 q2 real;
 S_syms = [p1+1i*q1; p2 + 1i*q2];
 %ResistanceMatrix = [0 g1-1i*b1 inf; g1-1i*b1 0 g2-1i*b2; inf g2-1i*b2 0];
 DIM = 2;
-G = [-g1 g1 0; g1 -g1-g2 g2; 0 g2 -g2];
-B = [-b1 b1 0; b1 -b1-b2 b2; 0 b2 -b2];
-G_s = -[ -g1-g2 g2; g2 -g2];
-B_s = -[ -b1-b2 b2; b2 -b2];
 
+%% V-obraznaya set' 
 G = [g1+g2 -g1 -g2; -g1 g1 0; -g2 0 g2];
 B = [b1+b2 -b1 -b2; -b1 b1 0; -b2 0 b2];
 G_s = -[g1 0; 0 g2];
 B_s = -[b1 0; 0 b2];
 
+%% liniya s izlomom 
+G = [g1 -g1 0; g1 -g1-g2 g2; 0 g2 -g2];
+B = [-b1 b1 0; b1 -b1-b2 b2; 0 b2 -b2];
+G_s = -[ -g1-g2 g2; g2 -g2];
+B_s = -[ -b1-b2 b2; b2 -b2];
+
+%%
 ConductMatrix_s =  G_s - B_s*1i;
 ConductMatrix = G - B*1i;
-syms u1 u2 real;
-us = [u1; u2];
-g2 = g1;
-b2 = b1;
-p2 = p1;
-q2 = q1;
-solve( (ConductMatrix_s)^(-1) * (-ConductMatrix(2:DIM+1,1) * u_b - conj(S_syms)./conj(us)) - us , us)
 
-solve(- u1 + ((u_b*(b1*1i - g1) + (p1 - q1*1i)/u1)*1i)/(b1 + g1*1i), u1)
+syms u1_c v1_c u2_c v2_c real;
+u1=u1_c+1i*v1_c;
+u2=u2_c+1i*v2_c;
+us = [u1; u2];
+[x,y,z,t] = solve( (ConductMatrix_s)^(-1) * (-ConductMatrix(2:DIM+1,1) * u_b - conj(S_syms)./conj(us)) + us , [u1_c,v1_c,u2_c,v2_c])
+
+uur =(ConductMatrix_s)^(-1) * (-ConductMatrix(2:DIM+1,1) * u_b - conj(S_syms)./conj(us)) + us;
+eval(uur)
+        

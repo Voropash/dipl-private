@@ -42,4 +42,8 @@ F = [diag(u), diag(v);
    for kkkkkkkkk = 1:1:DIM+1
        l =  l + F(kkkkkkkkk);
    end
+   %% OR as
+   dd = diag([u0; U_abs_sygm(1)*e^(i*U_abs_sygm(3)); U_abs_sygm(2)*e^(i*U_abs_sygm(4))]);
+   ddd = [u0; U_abs_sygm(1)*e^(-i*U_abs_sygm(3)); U_abs_sygm(2)*e^(-i*U_abs_sygm(4))];
+   sum(real(dd*conj(ConductMatrix)*ddd))
    

@@ -1,5 +1,14 @@
+s_Q = zeros(2*DIM, 1);
+[s_Q,fval,exitflag,output,jacobian] = fsolve(@UURPOLAR2, s_Q ,optimset('MaxFunEvals',10000,'MaxIter', 10000, 'TolX', 0), V, ConductMatrix,ConductMatrix_s,DIM,P,balanceU);
+
+
+U_abs_sygm = [ones(DIM, 1) * 110; zeros(DIM, 1)];
+[U_abs_sygm,fval,exitflag,output,jacobian] = fsolve(@UURPOLAR, U_abs_sygm ,optimset('MaxFunEvals',10000,'MaxIter', 10000, 'TolX', 0), ConductMatrix,ConductMatrix_s,DIM,S,balanceU);
+
+
+
 U = ones(DIM, 1) * 110;
-[U,fval,exitflag,output,jacobian] = fsolve(@UUR, U ,optimset('MaxFunEvals',10000,'MaxIter', 10000, 'TolX', 0, 'Algorithm', {'levenberg-marquardt',.01}, 'ScaleProblem', 'Jacobian'), ConductMatrix,ConductMatrix_s,DIM,S,balanceU);
+[U,fval,exitflag,output,jacobian] = fsolve(@UUR, U ,optimset('MaxFunEvals',10000,'MaxIter', 10000, 'TolX', 0), ConductMatrix,ConductMatrix_s,DIM,S,balanceU);
 sum_abs_uur( U,ConductMatrix,ConductMatrix_s,DIM,S,balanceU )
 
 U_previousIteration = U; 
