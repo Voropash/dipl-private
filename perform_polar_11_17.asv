@@ -1,0 +1,101 @@
+%% All dots
+from_x = -1.7;
+to_x = 0.6;
+step_x = 0.025;
+from_y = -1.7;
+to_y = 0.6;
+step_y = 0.025;
+%% Center
+%from_x = -0.55;
+%to_x = 0.55;
+%step_X = 0.02;
+%from_y = -0.55;
+%to_y = 0.55;
+%step_y = 0.02;
+%% side
+%from_x = -1.66;
+%to_x = -0.75;
+%step_x = 0.065;
+%from_y = -0.3;
+%to_y = 0.55;
+%step_y = 0.065;
+%% Oterside
+%from_x = -1.5;
+%to_x = -1.2;
+%step_x = 0.025;
+%from_y = -1;
+%to_y = -0.5;
+%step_y = 0.025;
+
+abc = [];
+ord = [];
+ii = [];
+ii_axes = [];
+jj = [];
+boolean_matrix = [];
+jj_axes = [];
+ord_polar = [];
+ord_matrix = [];
+ord_polar_matrix = [];
+
+for i = from_x:step_x:to_x
+    ii_axes = [ii_axes; i];
+end
+for j = from_y:step_y:to_y
+    jj_axes = [jj_axes; j];
+end
+
+i_count = 0;
+for i = from_x:step_x:to_x
+    i_count = i_count + 1;
+    j_count = 0;
+    disp(i);
+    datetime('now')
+    for j = from_y:step_y:to_y
+        j_count = j_count + 1;
+        P = [i; j];
+        s_Q = [
+          0;0; % sigma start
+          0;0;0; % Q 
+          0 % P
+        ];
+        [s_Q,fval,exitflag,output,jacobian] = fsolve(@UURPOLAR2_dim6, s_Q ,optimset('Display', 'none', 'Algorithm',  {'levenberg-marquardt',.05}), 0, V, ConductMatrix,ConductMatrix_s,DIM,P,balanceU);
+        if exitflag == 1
+            U = [balanceU; V];
+            sigma = [0; s_Q(1:DIM)];
+
+            u = [balanceU; V].*cos(sigma);
+            v = [balanceU; V].*sin(sigma);
+
+            Gessianus_polar_from_jacobian;
+
+            ii = [ii; i];
+            jj = [jj; j];
+            ord_matrix(i_count, j_count) = min_eig;
+            ord_polar_matrix(i_count, j_count) =  -s_Q(2*DIM+2)-P(1)-P(2); % det(jacobian); % min_eig_polar;
+            boolean_matrix(i_count, j_count) = 10;
+            %disp(P);
+        else 
+           % disp 'error';
+            ord_matrix(i_count, j_count) = 0;    
+            ord_polar_matrix(i_count, j_count) = 0;            
+            boolean_matrix(i_count, j_count) = 0;
+        end
+    end
+end
+
+%subplot(2,1,1), 
+%plot(abc, ord_polar)
+%title('polar')
+
+%subplot(2,1,2), 
+%plot(abc, ord)
+%title('dekart')
+
+tr_ord_polar_matrix = max(-2, ord_polar_matrix);
+tr_ord_polar_matrix = min(4, tr_ord_polar_matrix);
+tr_ord_matrix = max(-2, ord_matrix);
+tr_ord_matrix = min(4, tr_ord_matrix);
+
+surf(jj_axes,ii_axes,tr_ord_polar_matrix);
+%contour(ii_axes,jj_axes,tr_ord_matrix)
